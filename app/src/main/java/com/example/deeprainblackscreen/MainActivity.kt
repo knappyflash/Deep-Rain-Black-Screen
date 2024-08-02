@@ -8,6 +8,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
         mediaPlayer2.start() // Start playing the audio
 
         handler.postDelayed({
-            mediaPlayer3 = MediaPlayer.create(this, R.raw.rain_heavy_poor)
+            mediaPlayer3 = MediaPlayer.create(this, R.raw.rain_heavy_poor2)
             mediaPlayer3.isLooping = true // Enable looping
             mediaPlayer3.setVolume(1.0F, 1.0F)
             mediaPlayer3.start() // Start playing the audio
