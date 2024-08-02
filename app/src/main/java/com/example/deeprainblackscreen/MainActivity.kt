@@ -1,6 +1,7 @@
 package com.example.deeprainblackscreen
 
 import android.os.Bundle
+import android.view.WindowManager
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.ComponentActivity
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContent {
             Box(
@@ -42,6 +44,8 @@ class MainActivity : ComponentActivity() {
                 LiveClock()
             }
         }
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // Initialize and configure MediaPlayer
         mediaPlayer1 = MediaPlayer.create(this, R.raw.rain_heavy_poor)
@@ -78,6 +82,12 @@ class MainActivity : ComponentActivity() {
         }
         if (::mediaPlayer2.isInitialized) {
             mediaPlayer2.release()
+        }
+        if (::mediaPlayer3.isInitialized) {
+            mediaPlayer3.release()
+        }
+        if (::mediaPlayer4.isInitialized) {
+            mediaPlayer4.release()
         }
     }
 }
