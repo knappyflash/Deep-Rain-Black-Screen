@@ -11,6 +11,10 @@ import android.media.MediaPlayer
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.Button
+import  android.content.Intent
+import android.content.SharedPreferences
+import android.view.View
+import androidx.preference.PreferenceManager
 
 class MainActivity : ComponentActivity() {
 
@@ -18,6 +22,8 @@ class MainActivity : ComponentActivity() {
     private lateinit var myTextViewmyRain_Drips_A_B: TextView
 
     private lateinit var myTextViewClock: TextView
+
+    private lateinit var myTextViewMsg: TextView
 
     private lateinit var mediaPlayer1: MediaPlayer
     private lateinit var mediaPlayer2: MediaPlayer
@@ -41,8 +47,11 @@ class MainActivity : ComponentActivity() {
         myTextViewmyHeavyRainLoop_A_B = findViewById(R.id.HeavyRainLoop_A_B)
         myTextViewmyRain_Drips_A_B = findViewById(R.id.Rain_Drips_A_B)
         myTextViewClock = findViewById(R.id.textViewClock)
+        myTextViewMsg = findViewById(R.id.textViewMsg)
         val myButton: Button = findViewById(R.id.myButton)
         myButton.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Hi Sheila!", Toast.LENGTH_SHORT).show()
         }
 
@@ -61,6 +70,42 @@ class MainActivity : ComponentActivity() {
         mediaPlayer3.start()
 
         startLoopTimer()
+
+        preference_conditions()
+
+    }
+
+    private fun preference_conditions(){
+
+        // Get the SharedPreferences instance
+        val sharedPreferences: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(this)
+
+        // Retrieve the values from settings
+        val isShowClockEnabled = sharedPreferences.getBoolean("show_clock", false)
+        val isShowMsgEnabled = sharedPreferences.getBoolean("show_msg", false)
+        val isShowAudioTimersEnabled =
+            sharedPreferences.getBoolean("show_audio_timers", false)
+
+        if (isShowClockEnabled) {
+            myTextViewClock.visibility = View.VISIBLE
+        } else {
+            myTextViewClock.visibility = View.INVISIBLE
+        }
+
+        if (isShowMsgEnabled) {
+            myTextViewMsg.visibility = View.VISIBLE
+        } else {
+            myTextViewMsg.visibility = View.INVISIBLE
+        }
+
+        if (isShowAudioTimersEnabled) {
+            myTextViewmyHeavyRainLoop_A_B.visibility = View.VISIBLE
+            myTextViewmyRain_Drips_A_B.visibility = View.VISIBLE
+        } else {
+            myTextViewmyHeavyRainLoop_A_B.visibility = View.INVISIBLE
+            myTextViewmyRain_Drips_A_B.visibility = View.INVISIBLE
+        }
     }
     private fun createMediaPlayer(resId: Int, CanLoop: Boolean): MediaPlayer {
         return MediaPlayer.create(this, resId).apply {

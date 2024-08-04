@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation("androidx.compose.material:material-android:1.6.8") // Add this line
     implementation ("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation(libs.androidx.preference)
+    implementation(libs.material)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)

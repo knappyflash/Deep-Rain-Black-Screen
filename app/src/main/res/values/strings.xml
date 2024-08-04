@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Deep Rain Black Screen</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="settings_header">Settings</string>
+    <string name="show_clock_title">Show Clock</string>
+    <string name="show_msg_title">Show Message</string>
+    <string name="show_audio_timers_title">Show Audio Timers</string>
 </resources>
