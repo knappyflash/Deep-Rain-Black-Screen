@@ -1,19 +1,29 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/settings_header">
 
         <SwitchPreferenceCompat
             app:key="show_clock"
-            app:title="@string/show_clock_title" />
+            app:title="@string/show_clock_title"
+            app:defaultValue="true"/>
 
         <SwitchPreferenceCompat
             app:key="show_msg"
-            app:title="@string/show_msg_title" />
+            app:title="@string/show_msg_title"
+            app:defaultValue="true"/>
 
         <SwitchPreferenceCompat
             app:key="show_audio_timers"
-            app:title="@string/show_audio_timers_title" />
+            app:title="@string/show_audio_timers_title"
+            app:defaultValue="false"/>
 
     </PreferenceCategory>
+    <EditTextPreference
+        android:defaultValue="In peace I will lie down and sleep, for you alone, O LORD, make me dwell in safety. Psalm 4:8"
+        android:key="edit_text_preference_1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Edit Message" />
 
 </PreferenceScreen>

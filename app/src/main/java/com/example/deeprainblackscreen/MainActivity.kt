@@ -14,7 +14,9 @@ import android.widget.Button
 import  android.content.Intent
 import android.content.SharedPreferences
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import androidx.activity.OnBackPressedCallback
 
 class MainActivity : ComponentActivity() {
 
@@ -49,10 +51,15 @@ class MainActivity : ComponentActivity() {
         myTextViewClock = findViewById(R.id.textViewClock)
         myTextViewMsg = findViewById(R.id.textViewMsg)
         val myButton: Button = findViewById(R.id.myButton)
+        val myDrawable = ContextCompat.getDrawable(this, R.drawable.settings_gear)
+        myDrawable?.setBounds(0,0,24,24)
+
+        val intent = Intent(this, SettingsActivity::class.java)
+
+        myButton.setCompoundDrawables(myDrawable,null,null,null)
         myButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Hi Sheila!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Hi Sheila!", Toast.LENGTH_SHORT).show()
         }
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -71,8 +78,28 @@ class MainActivity : ComponentActivity() {
 
         startLoopTimer()
 
-        preference_conditions()
+        // Handle the back button press
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Handle the back button click
+                System.exit(0)
+            }
+        })
 
+        preference_conditions()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        preference_conditions()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer1.stop()
+        mediaPlayer2.stop()
+        mediaPlayer3.stop()
+        mediaPlayer4.stop()
     }
 
     private fun preference_conditions(){
@@ -86,6 +113,7 @@ class MainActivity : ComponentActivity() {
         val isShowMsgEnabled = sharedPreferences.getBoolean("show_msg", false)
         val isShowAudioTimersEnabled =
             sharedPreferences.getBoolean("show_audio_timers", false)
+        val MessageText = sharedPreferences.getString("edit_text_preference_1", "Default value")
 
         if (isShowClockEnabled) {
             myTextViewClock.visibility = View.VISIBLE
@@ -106,6 +134,7 @@ class MainActivity : ComponentActivity() {
             myTextViewmyHeavyRainLoop_A_B.visibility = View.INVISIBLE
             myTextViewmyRain_Drips_A_B.visibility = View.INVISIBLE
         }
+        myTextViewMsg.text = MessageText
     }
     private fun createMediaPlayer(resId: Int, CanLoop: Boolean): MediaPlayer {
         return MediaPlayer.create(this, resId).apply {
@@ -113,11 +142,6 @@ class MainActivity : ComponentActivity() {
             setVolume(1.0F, 1.0F)
         }
     }
-    override fun onPause() {
-        super.onPause()
-        System.exit(0)
-    }
-
     private fun getCurrentTime(): String {
         val sdf = SimpleDateFormat("h:mm:ss a", Locale.getDefault())
         return sdf.format(Date())

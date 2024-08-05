@@ -8,10 +8,10 @@
 
     <Button
         android:id="@+id/myButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="33dp"
         android:background="@android:color/black"
-        android:text="settings"
+        android:drawableLeft="@drawable/settings_gear"
         android:textColor="#646464"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
         android:layout_width="374dp"
         android:layout_height="108dp"
         android:background="@android:color/black"
-        android:text="In peace I will lie down and sleep,\nfor you alone, O LORD, make me dwell in safety.\nPsalm 4:8"
+        android:text=""
         android:textColor="#646464"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
