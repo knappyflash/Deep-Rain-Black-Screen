@@ -5,4 +5,5 @@
     <string name="show_clock_title">Show Clock</string>
     <string name="show_msg_title">Show Message</string>
     <string name="show_audio_timers_title">Show Audio Timers</string>
+    <string name="Allow_Background_Rain_title">Allow Background Rain</string>
 </resources>

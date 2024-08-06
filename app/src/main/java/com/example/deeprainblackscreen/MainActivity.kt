@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var myTextViewmyHeavyRainLoop_A_B: TextView
     private lateinit var myTextViewmyRain_Drips_A_B: TextView
+    private  var AllowBackgroundRain = false
 
     private lateinit var myTextViewClock: TextView
 
@@ -44,6 +45,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         myTextViewmyHeavyRainLoop_A_B = findViewById(R.id.HeavyRainLoop_A_B)
@@ -64,20 +66,6 @@ class MainActivity : ComponentActivity() {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        mediaPlayer1 = createMediaPlayer(R.raw.rain_heavy_poor2,false)
-        mediaPlayer2 = createMediaPlayer(R.raw.rain_heavy_poor2,false)
-
-        mediaPlayer3 = createMediaPlayer(R.raw.rain_drips,false)
-        mediaPlayer4 = createMediaPlayer(R.raw.rain_drips,false)
-
-        SecondsCounter1.start()
-        SecondsCounter3.start()
-
-        mediaPlayer1.start()
-        mediaPlayer3.start()
-
-        startLoopTimer()
-
         // Handle the back button press
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -86,20 +74,68 @@ class MainActivity : ComponentActivity() {
             }
         })
 
-        preference_conditions()
+        Player_Start_Stop_Start()
+
+    }
+
+    private fun Player_Start_Stop_Start(){
+        Sleep_Rain_Start()
+        Stop_All_Players()
+        Sleep_Rain_Start()
+    }
+
+    private fun Sleep_Rain_Start(){
+
+        SecondsCounter1.start()
+        SecondsCounter3.start()
+
+        mediaPlayer1 = createMediaPlayer(R.raw.rain_heavy_poor2,false)
+        mediaPlayer2 = createMediaPlayer(R.raw.rain_heavy_poor2,false)
+
+        mediaPlayer3 = createMediaPlayer(R.raw.rain_drips,false)
+        mediaPlayer4 = createMediaPlayer(R.raw.rain_drips,false)
+
+        mediaPlayer1.start()
+        mediaPlayer3.start()
+
+        startLoopTimer()
+
+    }
+
+    private fun Stop_All_Players(){
+        handler.removeCallbacks(runnable)
+        SecondsCounter1.stop()
+        SecondsCounter2.stop()
+        SecondsCounter3.stop()
+        SecondsCounter4.stop()
+
+        SecondsCounter1.reset()
+        SecondsCounter2.reset()
+        SecondsCounter3.reset()
+        SecondsCounter4.reset()
+        mediaPlayer1.stop()
+        mediaPlayer2.stop()
+        mediaPlayer3.stop()
+        mediaPlayer4.stop()
     }
 
     override fun onResume() {
         super.onResume()
         preference_conditions()
+        Player_Start_Stop_Start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preference_conditions()
+        if (AllowBackgroundRain == false) {
+            Stop_All_Players()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer1.stop()
-        mediaPlayer2.stop()
-        mediaPlayer3.stop()
-        mediaPlayer4.stop()
+        Stop_All_Players()
     }
 
     private fun preference_conditions(){
@@ -114,6 +150,8 @@ class MainActivity : ComponentActivity() {
         val isShowAudioTimersEnabled =
             sharedPreferences.getBoolean("show_audio_timers", false)
         val MessageText = sharedPreferences.getString("edit_text_preference_1", "Default value")
+
+        AllowBackgroundRain = sharedPreferences.getBoolean("Allow_Background_Rain", false)
 
         if (isShowClockEnabled) {
             myTextViewClock.visibility = View.VISIBLE

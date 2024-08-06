@@ -18,6 +18,11 @@
             app:title="@string/show_audio_timers_title"
             app:defaultValue="false"/>
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="Allow_Background_Rain"
+            app:title="@string/Allow_Background_Rain_title" />
+
     </PreferenceCategory>
     <EditTextPreference
         android:defaultValue="In peace I will lie down and sleep, for you alone, O LORD, make me dwell in safety. Psalm 4:8"
