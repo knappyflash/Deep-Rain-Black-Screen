@@ -74,14 +74,8 @@ class MainActivity : ComponentActivity() {
             }
         })
 
-        Player_Start_Stop_Start()
-
-    }
-
-    private fun Player_Start_Stop_Start(){
         Sleep_Rain_Start()
-        Stop_All_Players()
-        Sleep_Rain_Start()
+
     }
 
     private fun Sleep_Rain_Start(){
@@ -119,17 +113,31 @@ class MainActivity : ComponentActivity() {
         mediaPlayer4.stop()
     }
 
+    private fun Mute_Players(){
+        mediaPlayer1.setVolume(0.0F,0.0F)
+        mediaPlayer2.setVolume(0.0F,0.0F)
+        mediaPlayer3.setVolume(0.0F,0.0F)
+        mediaPlayer4.setVolume(0.0F,0.0F)
+    }
+
+    private fun Unmute_Players(){
+        mediaPlayer1.setVolume(1.0F,1.0F)
+        mediaPlayer2.setVolume(1.0F,1.0F)
+        mediaPlayer3.setVolume(1.0F,1.0F)
+        mediaPlayer4.setVolume(1.0F,1.0F)
+    }
+
     override fun onResume() {
         super.onResume()
         preference_conditions()
-        Player_Start_Stop_Start()
+        Unmute_Players()
     }
 
     override fun onPause() {
         super.onPause()
         preference_conditions()
-        if (AllowBackgroundRain == false) {
-            Stop_All_Players()
+        if (!AllowBackgroundRain) {
+            Mute_Players()
         }
     }
 
@@ -187,6 +195,7 @@ class MainActivity : ComponentActivity() {
     private fun startLoopTimer() {
         runnable = object : Runnable {
             override fun run() {
+
                 // Main Loop
 
                 myTextViewClock.text = getCurrentTime()

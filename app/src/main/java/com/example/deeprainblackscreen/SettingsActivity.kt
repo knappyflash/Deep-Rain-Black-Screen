@@ -3,7 +3,6 @@ package com.example.deeprainblackscreen
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
-import androidx.appcompat.widget.Toolbar
 import androidx.activity.OnBackPressedCallback
 import android.view.MenuItem
 
