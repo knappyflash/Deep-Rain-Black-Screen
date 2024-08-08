@@ -6,7 +6,7 @@
         <SwitchPreferenceCompat
             app:key="show_clock"
             app:title="@string/show_clock_title"
-            app:defaultValue="true"/>
+            app:defaultValue="true" />
 
         <SwitchPreferenceCompat
             app:key="show_msg"

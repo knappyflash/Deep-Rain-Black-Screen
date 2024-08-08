@@ -1,9 +1,8 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/black</item>
-        <item name="android:preferenceScreenStyle">@style/CustomPreferenceTextAppearance</item>
         <item name="android:textColor">@color/preference_text_color</item>
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
 </resources>
