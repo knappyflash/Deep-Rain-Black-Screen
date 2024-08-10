@@ -22,7 +22,9 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var myTextViewmyHeavyRainLoop_A_B: TextView
     private lateinit var myTextViewmyRain_Drips_A_B: TextView
-    private  var AllowBackgroundRain = false
+    private var AllowBackgroundRain = false
+    private var AllowRainHeavy = true
+    private var AllowRainDrips = true
 
     private lateinit var myTextViewClock: TextView
 
@@ -127,10 +129,37 @@ class MainActivity : ComponentActivity() {
         mediaPlayer4.setVolume(1.0F,1.0F)
     }
 
+    private fun Mute_Rain_Heavy(){
+        mediaPlayer1.setVolume(0.0F,0.0F)
+        mediaPlayer2.setVolume(0.0F,0.0F)
+    }
+    private fun Mute_Rain_Drips(){
+        mediaPlayer3.setVolume(0.0F,0.0F)
+        mediaPlayer4.setVolume(0.0F,0.0F)
+    }
+
+    private fun Unmute_Rain_Heavy(){
+        mediaPlayer1.setVolume(1.0F,1.0F)
+        mediaPlayer2.setVolume(1.0F,1.0F)
+    }
+    private fun Unmute_Rain_Drips(){
+        mediaPlayer3.setVolume(1.0F,1.0F)
+        mediaPlayer4.setVolume(1.0F,1.0F)
+    }
+
     override fun onResume() {
         super.onResume()
         preference_conditions()
-        Unmute_Players()
+        if (!AllowRainHeavy){
+            Mute_Rain_Heavy()
+        }else{
+            Unmute_Rain_Heavy()
+        }
+        if (!AllowRainDrips){
+            Mute_Rain_Drips()
+        }else{
+            Unmute_Rain_Drips()
+        }
     }
 
     override fun onPause() {
@@ -154,12 +183,13 @@ class MainActivity : ComponentActivity() {
 
         // Retrieve the values from settings
         val isShowClockEnabled = sharedPreferences.getBoolean("show_clock", false)
+        val isShowAudioTimersEnabled = sharedPreferences.getBoolean("show_audio_timers", false)
         val isShowMsgEnabled = sharedPreferences.getBoolean("show_msg", false)
-        val isShowAudioTimersEnabled =
-            sharedPreferences.getBoolean("show_audio_timers", false)
         val MessageText = sharedPreferences.getString("edit_text_preference_1", "Default value")
 
         AllowBackgroundRain = sharedPreferences.getBoolean("Allow_Background_Rain", false)
+        AllowRainHeavy = sharedPreferences.getBoolean("Allow_Rain_Heavy", true)
+        AllowRainDrips = sharedPreferences.getBoolean("Allow_Rain_Drips", true)
 
         if (isShowClockEnabled) {
             myTextViewClock.visibility = View.VISIBLE

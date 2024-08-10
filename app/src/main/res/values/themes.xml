@@ -3,6 +3,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColor">@color/preference_text_color</item>
         <item name="android:windowBackground">@color/black</item>
+        <item name="colorPrimary">@color/light_purple</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
     </style>
 
 </resources>
