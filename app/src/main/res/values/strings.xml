@@ -6,4 +6,16 @@
     <string name="show_msg_title">Show Message</string>
     <string name="show_audio_timers_title">Show Audio Timers</string>
     <string name="Allow_Background_Rain_title">Allow Background Rain</string>
+
+    <string-array name="color_names">
+        <item>Black</item>
+        <item>Dark Grey</item>
+        <item>Light Grey</item>
+    </string-array>
+    <string-array name="color_values">
+        <item>"Black"</item>
+        <item>"Dark Grey"</item>
+        <item>"Light Grey"</item>
+    </string-array>
+
 </resources>

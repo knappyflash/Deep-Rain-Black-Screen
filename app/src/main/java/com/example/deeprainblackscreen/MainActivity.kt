@@ -17,6 +17,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.activity.OnBackPressedCallback
+import android.graphics.Color
 
 class MainActivity : ComponentActivity() {
 
@@ -56,7 +57,7 @@ class MainActivity : ComponentActivity() {
         myTextViewMsg = findViewById(R.id.textViewMsg)
         val myButton: Button = findViewById(R.id.myButton)
         val myDrawable = ContextCompat.getDrawable(this, R.drawable.settings_gear)
-        myDrawable?.setBounds(0,0,24,24)
+        myDrawable?.setBounds(0,0,120,120)
 
         val intent = Intent(this, SettingsActivity::class.java)
 
@@ -177,6 +178,9 @@ class MainActivity : ComponentActivity() {
 
     private fun preference_conditions(){
 
+        val myButton: Button = findViewById(R.id.myButton)
+        val rootView: View = findViewById(android.R.id.content)
+
         // Get the SharedPreferences instance
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)
@@ -186,6 +190,7 @@ class MainActivity : ComponentActivity() {
         val isShowAudioTimersEnabled = sharedPreferences.getBoolean("show_audio_timers", false)
         val isShowMsgEnabled = sharedPreferences.getBoolean("show_msg", false)
         val MessageText = sharedPreferences.getString("edit_text_preference_1", "Default value")
+        val BackgroundColor = sharedPreferences.getString("background_color_preference", "Black")
 
         AllowBackgroundRain = sharedPreferences.getBoolean("Allow_Background_Rain", false)
         AllowRainHeavy = sharedPreferences.getBoolean("Allow_Rain_Heavy", true)
@@ -210,7 +215,39 @@ class MainActivity : ComponentActivity() {
             myTextViewmyHeavyRainLoop_A_B.visibility = View.INVISIBLE
             myTextViewmyRain_Drips_A_B.visibility = View.INVISIBLE
         }
+
+        // Set the background color and text for the activity
+
+        when (BackgroundColor) {
+            "Black" -> Change_Background_and_Text_Color(Color.BLACK, Color.DKGRAY)
+            "Dark Grey" -> Change_Background_and_Text_Color(Color.DKGRAY, Color.LTGRAY)
+            "Light Grey" -> Change_Background_and_Text_Color(Color.LTGRAY, Color.BLACK)
+            else -> {
+                Change_Background_and_Text_Color(Color.BLACK, Color.DKGRAY)
+            }
+        }
+
         myTextViewMsg.text = MessageText
+    }
+
+    private fun Change_Background_and_Text_Color(BgColor: Int, TxtColor: Int){
+        val myButton: Button = findViewById(R.id.myButton)
+        val rootView: View = findViewById(android.R.id.content)
+
+        rootView.setBackgroundColor(BgColor)
+        myButton.setBackgroundColor(BgColor)
+
+        myTextViewMsg.setBackgroundColor(BgColor)
+        myTextViewMsg.setTextColor(TxtColor)
+
+        myTextViewClock.setBackgroundColor(BgColor)
+        myTextViewClock.setTextColor(TxtColor)
+
+        myTextViewmyRain_Drips_A_B.setBackgroundColor(BgColor)
+        myTextViewmyRain_Drips_A_B.setTextColor(TxtColor)
+
+        myTextViewmyHeavyRainLoop_A_B.setBackgroundColor(BgColor)
+        myTextViewmyHeavyRainLoop_A_B.setTextColor(TxtColor)
     }
     private fun createMediaPlayer(resId: Int, CanLoop: Boolean): MediaPlayer {
         return MediaPlayer.create(this, resId).apply {

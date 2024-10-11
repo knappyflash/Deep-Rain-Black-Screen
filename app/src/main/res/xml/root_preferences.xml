@@ -35,6 +35,14 @@
             app:defaultValue="true"/>
 
     </PreferenceCategory>
+
+    <ListPreference
+        android:key="background_color_preference"
+        android:title="Background Color"
+        android:summary="Select a background color"
+        android:entries="@array/color_names"
+        android:entryValues="@array/color_values" />
+
     <EditTextPreference
         android:defaultValue="In peace I will lie down and sleep, for you alone, O LORD, make me dwell in safety. Psalm 4:8"
         android:key="edit_text_preference_1"
